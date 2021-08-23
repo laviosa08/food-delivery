@@ -9,7 +9,9 @@ const client = new Client({
 
 client.connect((err) => {
   if (err) throw err;
-  console.log('Connected to MySQL Server!');
+  console.log('Connected to Heroku Db Server!');
 });
+
+module.exports = client;
 
 
