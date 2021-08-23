@@ -10,7 +10,7 @@ router.post('/user/purchase', userCtr.purchase);
 
 
 //API routes for resturant
-router.get('/restaurant/open',restaurantCtr.listOpenResturants);
+router.get('/restaurant/open/:dateTime',restaurantCtr.listOpenResturants);
 router.get('/restaurant/sortByPrice',restaurantCtr.listResturantsByPriceRange);
 router.get('/restaurant/search',restaurantCtr.search);
 

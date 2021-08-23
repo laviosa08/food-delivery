@@ -1,15 +1,16 @@
-import { createReadStream } from 'fs';
-import { withParser } from 'stream-json/streamers/StreamArray';
+const createReadStream =  require('fs');
+const withParser = require('stream-json/streamers/StreamArray');
 
-import { jsonToCSV } from '../services/json2Csv';
+const json2CsvCtrl = require('../services/json2Csv');
 
 const fields = ['dish_name', 'restaurant_name', 'transaction_amount', 'transaction_date', 'user_id'];
 const opts = { fields };
 const jsonStream = withParser();
 let transactionsJson = [];
 //internal Node readable stream option, pipe to stream-json to convert it
-createReadStream('../users_with_purchase_history.json').pipe(jsonStream.input);
+createReadStream('../raw_data/users_with_purchase_history.json').pipe(jsonStream.input);
 
+//Generating transactions table
 jsonStream
   .on('data', ({key, value}) => {
     let eachTransactionJson = value.purchaseHistory
@@ -26,7 +27,6 @@ jsonStream
     });
   })
   .on('end', () => {
-    console.log(transactionsJson);
     let fileName = "transaction.csv"
-    jsonToCSV(transactionsJson,opts,fileName);
+    json2CsvCtrl(transactionsJson,opts,fileName);
   });

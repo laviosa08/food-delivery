@@ -8,7 +8,7 @@ json2CsvCtrl.jsonToCSV = async function (json,opts,fileName){
     try {
      const parser = new Parser(opts);
      const csv = parser.parse(json);
-     console.log(csv);
+    //  console.log(csv);
      await json2CsvCtrl.writeCSVToFile(fileName,csv)
    } catch (err) {
      console.error(err);

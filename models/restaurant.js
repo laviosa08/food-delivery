@@ -1,17 +1,19 @@
-require('../config/database.js');
 const restaurantDbClient = require('../config/database')
 const restaurantModel = {};
 
-restaurantModel.getRestaurantId = async (restaurantName)=>{
-    let queryString = 'SELECT id FROM restaurants where restaurant_name ='+restaurantName;
-    restaurantDbClient.query(queryString, (err, res) => {
-        if (err) throw err;
-        for (let row of res.rows) {
-          console.log(JSON.stringify(row));
-        }
-        restaurantDbClient.end();
-      })
-      
+restaurantModel.getOpenRestaurants = async (dayOfWeek,hourMin)=>{
+    console.log(hourMin)
+    let queryString = 'SELECT opening_hours.restaurant_id, restaurants.name FROM opening_hours JOIN restaurants ON opening_hours.restaurant_id = restaurants.restaurant_id WHERE opening_hours."Mon"[1] > '+hourMin +' AND opening_hours."Mon"[2] < '+hourMin +' limit 10' ;
+    return await restaurantModel.getQuery(queryString);
+    
 }
+
+restaurantModel.getQuery = async (queryString)=>{
+    await restaurantDbClient.connect();
+    const result = await restaurantDbClient.query(queryString);
+    await restaurantDbClient.end();
+    return result.rows;
+}
+
 
 module.exports = restaurantModel;
