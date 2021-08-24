@@ -39,4 +39,31 @@ utilCtrl.getUUID = () => {
   });
 }
 
+
+utilCtrl.getCurrentDateTime = ()=>{
+  let dateObject = new Date();
+
+  // adjust 0 before single digit date
+  let date = ("0" + dateObject.getDate()).slice(-2);
+
+  // current month
+  let month = ("0" + (dateObject.getMonth() + 1)).slice(-2);
+
+  // current year
+  let year = dateObject.getFullYear();
+
+  // current hours
+  let hours = dateObject.getHours();
+
+  // current minutes
+  let minutes = dateObject.getMinutes();
+
+  // current seconds
+  let seconds = dateObject.getSeconds();
+
+  // prints date & time in YYYY-MM-DD HH:MM:SS format
+  return(year + "-" + month + "-" + date + " " + hours + ":" + minutes + ":" + seconds);
+
+}
+
 module.exports = utilCtrl;

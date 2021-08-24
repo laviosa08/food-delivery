@@ -56,5 +56,3 @@ restaurantCtrl.listResturantsByDishPriceRange = async (req,res) => {
 }
 
 module.exports = restaurantCtrl;
-
-//ecc826dc-0f9a-431e-b4ac-4e369dce3640
