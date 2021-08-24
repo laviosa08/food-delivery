@@ -32,3 +32,4 @@ app.all('/*', (req, res, next) => {
 // Router
 app.use('/', require('./routes/apiRoutes'));
 
+module.exports = app; // for testing
