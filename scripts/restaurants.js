@@ -1,8 +1,8 @@
 const fs = require('fs');
 const StreamArray = require( 'stream-json/streamers/StreamArray');
 
-const json2CsvCtrl = require('../services/json2Csv');
-const utilCtrl = require('../services/util');
+const json2CsvCtr = require('../services/json2Csv');
+const utilCtr = require('../services/util');
 const restaurantFields = ['restaurant_id', 'cash_balance', 'name'];
 const restaurantOpts = { restaurantFields };
 
@@ -27,7 +27,7 @@ fs.createReadStream('../raw_data/restaurant_with_menu.json').pipe(jsonStream.inp
 jsonStream
   .on('data', ({key, value}) => {    
     
-    let restaurantId = utilCtrl.getUUID();
+    let restaurantId = utilCtr.getUUID();
 
     //Restaurant data
     setRestaurantData(restaurantId, value);
@@ -41,9 +41,9 @@ jsonStream
   })
   .on('end', () => {
     console.log(openingHoursJson);
-    json2CsvCtrl.jsonToCSV(restaurantsJson, restaurantOpts, "restaurant.csv");
-    json2CsvCtrl.jsonToCSV(menuItemJson, menuOpts, "menu.csv");
-    json2CsvCtrl.jsonToCSV(openingHoursJson, openingHoursOpts, "openingHours.csv");
+    json2CsvCtr.jsonToCSV(restaurantsJson, restaurantOpts, "restaurant.csv");
+    json2CsvCtr.jsonToCSV(menuItemJson, menuOpts, "menu.csv");
+    json2CsvCtr.jsonToCSV(openingHoursJson, openingHoursOpts, "openingHours.csv");
   });
 
 
@@ -124,7 +124,7 @@ jsonStream
     let startEndTimes = timeRange.split('-');
     var startTime = startEndTimes[0].trim();
     var endTime = startEndTimes[1].trim();
-    time = "{" + utilCtrl.convertTimeToInt(startTime) + "," + utilCtrl.convertTimeToInt(endTime) + "}";
+    time = "{" + utilCtr.convertTimeToInt(startTime) + "," + utilCtr.convertTimeToInt(endTime) + "}";
     return time;
   }
   

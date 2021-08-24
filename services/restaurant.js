@@ -1,8 +1,8 @@
 const restaurantModel  = require('../models/restaurant');
 
-const restaurantCtrl = {};
+const restaurantCtr = {};
 
-restaurantCtrl.listOpenResturants = async (req,res) => {
+restaurantCtr.listOpenResturants = async (req,res) => {
   var days = ['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
   //Input datetime as timestamp
   let dateTime = req.params.dateTime;
@@ -25,7 +25,7 @@ restaurantCtrl.listOpenResturants = async (req,res) => {
   
 }
 
-restaurantCtrl.search = async (req,res) => {
+restaurantCtr.search = async (req,res) => {
     //get input string from user
     let searchString = req.query.searchString;
 
@@ -44,7 +44,7 @@ restaurantCtrl.search = async (req,res) => {
     return res.status(200).json({ msg: "Success", restaurants: restaurants, dishes: dishes});
 }
 
-restaurantCtrl.listResturantsByDishPriceRange = async (req,res) => {
+restaurantCtr.listResturantsByDishPriceRange = async (req,res) => {
     const dataObject = req.body;
 
     //fetch restaurants id having dishes within given price range
@@ -55,4 +55,4 @@ restaurantCtrl.listResturantsByDishPriceRange = async (req,res) => {
     return res.status(200).json({ msg: "Success", restaurants: restaurants});
 }
 
-module.exports = restaurantCtrl;
+module.exports = restaurantCtr;

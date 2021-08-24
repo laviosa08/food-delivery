@@ -1,6 +1,6 @@
-const utilCtrl = {};
+const utilCtr = {};
 
-utilCtrl.convertTimeToInt = (time)=>{
+utilCtr.convertTimeToInt = (time)=>{
   
   time = time.toLowerCase();
   let AM_PM = "am";
@@ -32,7 +32,7 @@ utilCtrl.convertTimeToInt = (time)=>{
   return parseInt(hour + min);
 }
 
-utilCtrl.getUUID = () => {
+utilCtr.getUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);
     return v.toString(16);
@@ -40,7 +40,7 @@ utilCtrl.getUUID = () => {
 }
 
 
-utilCtrl.getCurrentDateTime = ()=>{
+utilCtr.getCurrentDateTime = ()=>{
   let dateObject = new Date();
 
   // adjust 0 before single digit date
@@ -66,4 +66,4 @@ utilCtrl.getCurrentDateTime = ()=>{
 
 }
 
-module.exports = utilCtrl;
+module.exports = utilCtr;

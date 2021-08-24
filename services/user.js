@@ -1,6 +1,6 @@
 const userModel = require('../models/user');
 const restaurantModel  = require('../models/restaurant');
-const utilCtrl = require('../services/util');
+const utilCtr = require('../services/util');
 const userCtr = {};
 
 userCtr.purchaseDish = async (req,res) => {
@@ -36,7 +36,7 @@ userCtr.purchaseDish = async (req,res) => {
         })
 
         //get transaction date time
-        let transactionDate = utilCtrl.getCurrentDateTime();
+        let transactionDate = utilCtr.getCurrentDateTime();
         
         //Get restaurant Name
         let restaurantName = await restaurantModel.getRestaurantName(restaurantId)
