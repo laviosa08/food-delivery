@@ -1,5 +1,6 @@
 const utilCtr = {};
 
+//convert time string to integer
 utilCtr.convertTimeToInt = (time)=>{
   
   time = time.toLowerCase();
@@ -32,6 +33,7 @@ utilCtr.convertTimeToInt = (time)=>{
   return parseInt(hour + min);
 }
 
+//get unique id
 utilCtr.getUUID = () => {
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
     var r = Math.random() * 16 | 0, v = c == 'x' ? r : (r & 0x3 | 0x8);

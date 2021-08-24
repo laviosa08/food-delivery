@@ -14,9 +14,9 @@ router.post('/user/purchase', userCtr.purchaseDish);
 
 
 //API routes for resturant
-router.get('/restaurant/open/:dateTime',restaurantCtr.listOpenResturants);
+router.get('/restaurant/open/:dateTime/:page',restaurantCtr.listOpenResturants);
 router.post('/restaurant/restaurantsByDishPrice',restaurantCtr.listResturantsByDishPriceRange);
-router.get('/restaurant/search',restaurantCtr.search);
+router.get('/restaurant/search/:page',restaurantCtr.search);
 
 
 module.exports = router;

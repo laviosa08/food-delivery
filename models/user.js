@@ -41,9 +41,9 @@ userModel.executeQuery = async (queryString)=>{
 
 }
 
-userModel.executeInArrayQuery = async (queryString, dishes)=>{
+userModel.executeInArrayQuery = async (queryString, array)=>{
     let data = await userDbClient
-        .query(queryString, dishes)
+        .query(queryString, array)
         .then(result => {
             return result.rows
         })
@@ -52,6 +52,7 @@ userModel.executeInArrayQuery = async (queryString, dishes)=>{
 
 }
 
+//modify array as parameters for In array query
 function getParams(dishes){
     var params = [];
     for(var i = 1; i <= dishes.length; i++) {
