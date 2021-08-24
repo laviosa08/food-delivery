@@ -14,9 +14,10 @@ restaurantCtrl.listOpenResturants = async (req,res) => {
   let hours = date.getHours();
   let mins = date.getMinutes();
   
-  //convert time to int format as per db col
+  //convert time to int format as per db column
   let hourMin = (hours*100)+mins;
-  // fetch data
+  
+  // fetch data and send response
   restaurantModel.getOpenRestaurants(dayOfWeek,hourMin)
   .then((openRestaurants)=>{
     return res.status(200).json({ msg: "Success", openRestaurants: openRestaurants});
@@ -24,8 +25,23 @@ restaurantCtrl.listOpenResturants = async (req,res) => {
   
 }
 
-restaurantCtrl.search = (req,res) => {
-	
+restaurantCtrl.search = async (req,res) => {
+    //get input string from user
+    let searchString = req.query.searchString;
+
+    //fetch restaurants matching search string
+    let restaurants = await restaurantModel.searchRestaurants(searchString)
+    .then((result)=>{
+        return result;
+    })
+
+    //fetch dishes matching search string
+    let dishes = await restaurantModel.searchDishes(searchString)
+    .then((result)=>{
+        return result;
+    })
+
+    return res.status(200).json({ msg: "Success", restaurants: restaurants, dishes: dishes});
 }
 
 restaurantCtrl.listResturantsByPriceRange = (req,res) => {
