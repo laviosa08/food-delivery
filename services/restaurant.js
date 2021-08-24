@@ -44,8 +44,17 @@ restaurantCtrl.search = async (req,res) => {
     return res.status(200).json({ msg: "Success", restaurants: restaurants, dishes: dishes});
 }
 
-restaurantCtrl.listResturantsByPriceRange = (req,res) => {
-	
+restaurantCtrl.listResturantsByDishPriceRange = async (req,res) => {
+    const dataObject = req.body;
+
+    //fetch restaurants id having dishes within given price range
+    let restaurants = await restaurantModel.getrestaurantsByDishesInPriceRange(dataObject)
+    .then((result)=>{
+        return result;
+    })
+    return res.status(200).json({ msg: "Success", restaurants: restaurants});
 }
 
 module.exports = restaurantCtrl;
+
+//ecc826dc-0f9a-431e-b4ac-4e369dce3640

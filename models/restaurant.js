@@ -9,7 +9,7 @@ restaurantModel.getOpenRestaurants = async (dayOfWeek,hourMin)=>{
 
 restaurantModel.searchRestaurants = async (searchString)=>{
     // let queryString = 'SELECT restaurants.restaurant_id, restaurants.name FROM restaurants WHERE to_tsvector(restaurants.name) @@ to_tsquery(\''+searchString+'\')'  ;
-    let queryString = 'SELECT "restaurant_id" "restaurantId", "name" "restaurantName" FROM restaurants WHERE "name" ILIKE \'%'+searchString+'%\''  ;
+    let queryString = 'SELECT "restaurant_id" "restaurantId", "name" "restaurantName" FROM restaurants WHERE "name" ILIKE \'%'+searchString+'%\' ORDER  BY name ILIKE \'%'+searchString+'%\' OR NULL'  ;
     return await restaurantModel.getQuery(queryString);  
 }
 
@@ -18,6 +18,22 @@ restaurantModel.searchDishes = async (searchString)=>{
     return await restaurantModel.getQuery(queryString);
 }
 
+restaurantModel.getrestaurantsByDishesInPriceRange = async ({
+    numberOfRestaurants,
+    numberOfDishes,
+    startPrice,
+    endPrice,
+    moreOrLess
+})=>{
+    let queryString = "";
+    if(moreOrLess == "more"){
+        queryString = 'select dishCounts."restaurant_id" as "restaurantId" , restaurants."name" as "restaurantName" from restaurants JOIN (select count(*), restaurant_id from menu_items where menu_items.price > '+startPrice+' AND menu_items.price < '+endPrice+' group by restaurant_id) as dishCounts ON dishCounts."restaurant_id" = restaurants."restaurant_id" where dishCounts."count" > '+numberOfDishes+' limit '+numberOfRestaurants;
+    }else{
+        queryString = 'select dishCounts."restaurant_id" as "restaurantId" , restaurants."name" as "restaurantName" from restaurants JOIN (select count(*), restaurant_id from menu_items where menu_items.price > '+startPrice+' AND menu_items.price < '+endPrice+' group by restaurant_id) as dishCounts ON dishCounts."restaurant_id" = restaurants."restaurant_id" where dishCounts."count" < '+numberOfDishes+' limit '+numberOfRestaurants;
+    }
+    
+    return await restaurantModel.getQuery(queryString);
+}
 
 
 restaurantModel.getQuery = async (queryString)=>{

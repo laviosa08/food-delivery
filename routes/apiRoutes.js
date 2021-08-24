@@ -11,7 +11,7 @@ router.post('/user/purchase', userCtr.purchase);
 
 //API routes for resturant
 router.get('/restaurant/open/:dateTime',restaurantCtr.listOpenResturants);
-router.get('/restaurant/sortByPrice',restaurantCtr.listResturantsByPriceRange);
+router.post('/restaurant/restaurantsByDishPrice',restaurantCtr.listResturantsByDishPriceRange);
 router.get('/restaurant/search',restaurantCtr.search);
 
 
