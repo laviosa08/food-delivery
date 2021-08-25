@@ -2,9 +2,8 @@ const restaurantDbClient = require('../config/database')
 const restaurantModel = {};
 
 restaurantModel.getOpenRestaurants = async (dayOfWeek, hourMin , limit , offset)=>{
-    let queryString = 'SELECT opening_hours.restaurant_id, restaurants.name FROM opening_hours JOIN restaurants ON opening_hours.restaurant_id = restaurants.restaurant_id WHERE (((opening_hours."'+dayOfWeek+'"[1] <= '+hourMin +' and '+hourMin +' <= 2359) or (opening_hours."'+dayOfWeek+'"[2] >= '+hourMin +' and '+hourMin +' >= 0)) AND (opening_hours."'+dayOfWeek+'"[2] < opening_hours."'+dayOfWeek+'"[1])) OR ((opening_hours."'+dayOfWeek+'"[1] <= '+hourMin +' and '+hourMin +' <= opening_hours."'+dayOfWeek+'"[2]) AND (opening_hours."'+dayOfWeek+'"[2] >= opening_hours."'+dayOfWeek+'"[1]))';
+    let queryString = 'SELECT opening_hours.restaurant_id, restaurants.name FROM opening_hours JOIN restaurants ON opening_hours.restaurant_id = restaurants.restaurant_id WHERE (((opening_hours."'+dayOfWeek+'"[1] <= '+hourMin +' and '+hourMin +' <= 2359) or (opening_hours."'+dayOfWeek+'"[2] >= '+hourMin +' and '+hourMin +' >= 0)) AND (opening_hours."'+dayOfWeek+'"[2] < opening_hours."'+dayOfWeek+'"[1])) OR ((opening_hours."'+dayOfWeek+'"[1] <= '+hourMin +' and '+hourMin +' <= opening_hours."'+dayOfWeek+'"[2]) AND (opening_hours."'+dayOfWeek+'"[2] >= opening_hours."'+dayOfWeek+'"[1])) LIMIT '+ limit +' OFFSET '+ offset;
     return await restaurantModel.executeQuery(queryString);
-    
 }
 
 restaurantModel.searchRestaurants = async (searchString, limit, offset)=>{
