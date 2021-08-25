@@ -9,7 +9,7 @@ app.use(bodyParser.urlencoded({extended: true})); //Parse URL-encoded bodies
 
 
 const server = app.listen(
-	process.env.SERVER_PORT, '0.0.0.0', () => {
+	process.env.PORT || process.env.SERVER_PORT, '0.0.0.0', () => {
 	console.log(`Express server listening on port ${process.env.SERVER_PORT}`);
 });
 
